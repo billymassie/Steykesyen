@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import '@/assets/styles/global.css';
-import { title } from 'process';
+
+import Navbar from '@/components/Navbar';
 
 export const metadata = {
   title: 'PropertyPulse | Find The Prefect Rental',
@@ -12,7 +13,8 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang='en'>
       <body>
-        <div>{children}</div>
+        <Navbar />
+        <main>{children}</main>
       </body>
     </html>
   );
