@@ -1,7 +1,8 @@
-import properties from '@/properties.json';
 import PropertyCard from '@/components/PropertyCard';
+import { fetchProperties } from '@/utils/request';
 
-const PropertiesPage = () => {
+const PropertiesPage = async () => {
+  const properties = await fetchProperties();
   return (
     <section className='px-4 py-6'>
       <div className='container-xl lg:container m-auto px-4 py-6'>
@@ -9,9 +10,9 @@ const PropertiesPage = () => {
           <p>No Properties found</p>
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
-            {properties.map(property => (
+            {properties.map((property, index: number) => (
               <PropertyCard
-                key={property._id}
+                key={index}
                 property={property}
               />
             ))}
