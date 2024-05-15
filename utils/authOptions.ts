@@ -32,9 +32,9 @@ export const authOptions: AuthOptions = {
       }
       return true;
     },
-    async session({ session, user }) {
-      const users = await User.findOne({ email: session?.user?.email });
-      return { ...session, user: { ...session.user, id: users._id.toString() } };
+    async session({ session }) {
+      const user = await User.findOne({ email: session?.user?.email });
+      return { ...session, user: { ...session.user, id: user._id.toString() } };
     },
   },
 };
