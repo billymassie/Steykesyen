@@ -115,7 +115,11 @@ const PropertyAddForm = () => {
   };
 
   return (
-    <form>
+    <form
+      action='/api/properties'
+      method='POST'
+      encType='multipart/form-data'
+    >
       <h2 className='text-3xl text-center font-semibold mb-6'>Add Property</h2>
 
       <div className='mb-4'>
@@ -291,7 +295,7 @@ const PropertyAddForm = () => {
               name='amenities'
               value='Full Kitchen'
               className='mr-2'
-              checked={fields.amenities.includes('Full kitchen')}
+              checked={fields.amenities.includes('Full Kitchen')}
               onChange={handleAmenitiesChange}
             />
             <label htmlFor='amenity_kitchen'>Full kitchen</label>
@@ -521,7 +525,7 @@ const PropertyAddForm = () => {
         <input
           type='text'
           id='seller_name'
-          name='seller_info.name.'
+          name='seller_info.name'
           className='border rounded w-full py-2 px-3'
           placeholder='Name'
           value={fields.seller_info.name}
@@ -578,6 +582,7 @@ const PropertyAddForm = () => {
           className='border rounded w-full py-2 px-3'
           accept='image/*'
           multiple
+          required
           onChange={handleImageChange}
         />
       </div>
