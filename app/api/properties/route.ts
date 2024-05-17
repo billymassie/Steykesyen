@@ -2,6 +2,7 @@ import connectDB from '@/config/database';
 import Property from '@/models/Property';
 import { NextRequest } from 'next/server';
 import { getSessionUser } from '@/utils/getSessionUser';
+import cloudinary from '@/config/cloudinary';
 
 //GET /api/properties
 export const GET = async () => {
@@ -60,6 +61,23 @@ export const POST = async (request: NextRequest) => {
       owner: userId,
       images,
     };
+
+    //Upload image to Cloudinary
+    const imageUploadPromise = [];
+    for (const image of images) {
+      const file = image as unknown as Blob;
+      const imageBuffer = await file.arrayBuffer();
+      const imageArray = Array.from(new Uint8Array(imageBuffer));
+      const imageData = Buffer.from(imageArray);
+
+      const imageBase64 = imageData.toString('base64');
+      const result = await cloudinary.uploader.upload(`data:image/png;base64,${imageBase64}`, {
+        folder: 'propertypulse',
+      });
+      imageUploadPromise.push(result.secure_url);
+      const uploadedImages = await Promise.all(imageUploadPromise);
+      propertyData.images = uploadedImages;
+    }
 
     const newProperty = new Property(propertyData);
     await newProperty.save();

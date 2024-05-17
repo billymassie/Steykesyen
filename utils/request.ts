@@ -3,7 +3,9 @@ import { IProperties } from '@/types/Properties';
 //fetch all properties
 export async function fetchProperties(): Promise<IProperties[]> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`, {
+      cache: 'no-store',
+    });
 
     if (!res.ok) {
       throw new Error('Failde to fetch data');
