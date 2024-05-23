@@ -30,28 +30,28 @@ interface IField {
 
 const PropertyAddForm = () => {
   const [fields, setFields] = useState<IField>({
-    name: 'Boston Commons Retreat',
-    type: 'Apartment',
+    name: '',
+    type: '',
     description: '',
     location: {
       street: '',
-      city: 'Boston',
-      state: 'MA',
-      zipcode: '02108',
+      city: '',
+      state: '',
+      zipcode: '',
     },
-    beds: 2,
-    baths: 1,
-    square_feet: 1500,
+    beds: 0,
+    baths: 0,
+    square_feet: 0,
     amenities: [],
     rates: {
       nightly: '',
-      weekly: '1100',
-      monthly: '4200',
+      weekly: '',
+      monthly: '',
     },
     seller_info: {
-      name: 'John Doe',
-      email: 'john@gmail.com',
-      phone: '617-555-5555',
+      name: '',
+      email: '',
+      phone: '',
     },
     images: [],
   });
