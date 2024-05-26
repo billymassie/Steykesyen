@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
 
+import { toast } from 'react-toastify';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -52,12 +54,13 @@ const ProfilePage = () => {
       if (res.status === 200) {
         const updatedProperties = properties.filter(property => property._id !== propertyId);
         setProperties(updatedProperties);
-        console.log('properties deleted');
+        toast.success('Property Deleted');
       } else {
-        console.log('Failed to delete property');
+        toast.error('Failed to delete property');
       }
     } catch (error) {
       console.log(error);
+      toast.error('Failed to delete property');
     }
   };
 
