@@ -1,41 +1,16 @@
 'use client';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { fetchProperty } from '@/utils/request';
-
-interface IField {
-  name: string;
-  type: string;
-  description: string;
-  location: {
-    street: string;
-    city: string;
-    state: string;
-    zipcode: string;
-  };
-  beds: number;
-  baths: number;
-  square_feet: number;
-  amenities: string[];
-  rates: {
-    nightly?: string | number;
-    weekly?: string | number;
-    monthly?: string | number;
-  };
-  seller_info: {
-    name: string;
-    email: string;
-    phone: string;
-  };
-}
+import { IProperties } from '@/types/Properties';
 
 const PropertyEditForm = () => {
   const { id } = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
-  const [fields, setFields] = useState<IField>({
+  const [fields, setFields] = useState<IProperties>({
     name: '',
     type: '',
     description: '',
@@ -85,6 +60,7 @@ const PropertyEditForm = () => {
       }
     };
     fetchPropertyData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (
@@ -129,7 +105,26 @@ const PropertyEditForm = () => {
     }));
   };
 
-  const handleSubmit = async () => {};
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      const formData = new FormData(event.currentTarget);
+      const res = await fetch(`/api/properties/${id}`, {
+        method: 'PUT',
+        body: formData,
+      });
+      if (res.status === 200) {
+        router.push(`/properties/${id}`);
+      } else if (res.status === 401 || res.status === 403) {
+        toast.error('Permission denied');
+      } else {
+        toast.error('Something went wrong');
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Something went wrong');
+    }
+  };
 
   return (
     !loading && (

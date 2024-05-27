@@ -1,6 +1,6 @@
 export interface IProperties {
-  _id: string;
-  owner: string;
+  _id?: string;
+  owner?: string;
   name: string;
   type: string;
   description: string;
@@ -24,8 +24,8 @@ export interface IProperties {
     email: string;
     phone: string;
   };
-  images: string[];
-  is_featured: boolean;
-  createdAt: string;
-  updatedAt: string;
+  images?: string[];
+  is_featured?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
 }
