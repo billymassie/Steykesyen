@@ -3,14 +3,14 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { fetchProperty } from '@/utils/request';
-import { IProperties } from '@/types/Properties';
+import { IForm } from '@/types/Properties';
 
 const PropertyEditForm = () => {
   const { id } = useParams();
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
-  const [fields, setFields] = useState<IProperties>({
+  const [fields, setFields] = useState<IForm>({
     name: '',
     type: '',
     description: '',
